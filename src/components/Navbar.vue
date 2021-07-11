@@ -1,0 +1,52 @@
+<template>
+    <div>
+        <vs-navbar color="#7d33ff" text-white square center-collapsed>
+            <h2>{{ msg }}</h2>
+            <template #right>
+                <vs-input type="text" v-model="search" placeholder="Search"/>
+                <vs-button color="rgb(255,255,255)" flat>Search</vs-button>
+                <vs-button flat color="danger" v-if="isLogged" @click="logout()" to="/">Logout</vs-button>
+            </template>
+        </vs-navbar>
+    </div>
+
+</template>
+
+<script>
+import { mapGetters } from 'vuex'
+
+export default {
+    name: "Navbar",
+    props: {
+    msg: String,
+    },
+    data: () => ({
+        active: "0",
+        activeSidebar: false,
+    }),
+    computed: {
+        ...mapGetters([
+            'isLogged'   
+        ])
+    },
+    methods: {
+        logout() {
+            this.$store.dispatch('logout')
+        }
+    }
+};
+</script>
+
+<style scoped>
+    h2 {
+    
+    overflow: hidden;
+    padding-left: 40px;
+    
+}
+    ::placeholder {
+        color: black;
+        opacity: 1;
+
+}
+</style>
