@@ -10,6 +10,7 @@ import DataPerceraian from '../views/DataPerceraian.vue'
 import AddPerceraian from '../views/AddPerceraian.vue'
 import AddPerkawinan from '../views/AddPerkawinan.vue'
 import Register from '../views/Register.vue'
+import store from '../store/index.js'
 
 Vue.use(VueRouter)
 
@@ -17,7 +18,10 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home
+    component: Home,
+    meta: {
+      guest: true
+    }
   },
   {
     path: '/dashboard',
@@ -73,14 +77,25 @@ const router = new VueRouter({
   routes
 })
 
-router.beforeEach((to, from, next) => {
-  const loggedIn = localStorage.getItem('user')
-
-  if (to.matched.some(record => record.meta.auth) && !loggedIn) {
-    next('/')
-    return
+router.beforeEach((to, from, next) => { 
+  if (to.matched.some(record => record.meta.auth)) {
+    if (store.getters.authenticated && store.getters.user) {
+      next()
+      return
+    }
+    next()
   }
+
+  if (to.matched.some(record => record.meta.guest)) {
+    if (!store.getters.authenticated) {
+      next()
+      return
+    }
+    next()
+  }
+
   next()
 })
+
 
 export default router

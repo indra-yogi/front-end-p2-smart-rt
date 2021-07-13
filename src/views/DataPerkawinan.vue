@@ -12,7 +12,7 @@
               No. Akta Perkawinan
             </vs-th>
             <vs-th>
-              Attachment
+              No. Seri Akta Perkawinan
             </vs-th>
             <vs-th>
               Action
@@ -29,7 +29,7 @@
               {{ tr.marital_number }}
             </vs-td>
             <vs-td>
-            {{ tr.attachment }}
+            {{ tr.marital_serial_number }}
             </vs-td>
             <vs-td>
             <vs-button>Preview</vs-button>

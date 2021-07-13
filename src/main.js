@@ -7,9 +7,11 @@ import 'vuesax/dist/vuesax.css'; //Vuesax styles
 import 'material-icons/iconfont/material-icons.css';
 import router from './router';
 import store from './store';
-import './assets/css/main.css'
 import axios from "axios";
+import './assets/css/main.css';
 import VueApexCharts from "vue-apexcharts";
+
+import { setHeaderToken } from './utils/auth';
 
 Vue.use(
   Vuesax, 
@@ -21,24 +23,21 @@ Vue.component('apexchart', VueApexCharts);
 Vue.config.productionTip = false
 Vue.prototype.$http = Axios;
 
-new Vue({
-  router,
-  store,
-  created() {
-    const userInfo = localStorage.getItem('user')
-    if (userInfo) {
-      const userData = JSON.parse(userInfo)
-      this.$store.commit('setUserData', userData)
-    }
-    axios.interceptors.response.use(
-      response => response,
-      error => {
-        if (error.response.status === 401) {
-          this.$store.dispatch('logout')
-        }
-        return Promise.reject(error)
-      }
-    )
-  },
-  render: h => h(App)
-}).$mount('#app')
+axios.defaults.baseURL = 'http://localhost:8000/api/'
+
+const token = localStorage.getItem('token');
+
+if (token) { 
+  setHeaderToken(token) 
+} 
+
+store.dispatch('get_user', token)
+.then(() =>{
+  new Vue({
+    router,
+    store,
+    render: h => h(App)
+  }).$mount('#app')
+}).catch((error) => {
+  console.error(error);
+})

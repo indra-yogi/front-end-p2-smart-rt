@@ -1,4 +1,6 @@
 import axios from "axios"
+import { setHeaderToken } from '../utils/auth';
+import { removeHeaderToken } from '../utils/auth';
 
 let actions = {
     createMarital({commit}, maritals) {
@@ -57,17 +59,45 @@ let actions = {
             })
     },
 
-    login({ commit }, credentials) {
-        return axios.post('auth/login', credentials).then(({data}) => {
-            commit('setUserData', data)
+    login({ dispatch, commit }, data) {
+        return new Promise((resolve, reject) =>{
+            axios.post('auth/login', data).then(response => {
+                const token = response.data.content.access_token
+                localStorage.setItem('token', token)
+                setHeaderToken(token)
+                dispatch('get_user')
+                resolve(response)
+            }).catch(err => {
+                commit('reset_user')
+                localStorage.removeItem('token')
+                reject(err)
+            })
         })
     },
 
-    logout({ commit }, credentials) {
-        return axios.post('auth/logout', credentials).then(({data}) => {
-            commit('clearUserData', data)
+    async get_user({commit}){ 
+        if(!localStorage.getItem('token')){
+          return
+        }
+        try{ 
+          let response = await axios.get('user/profile')
+            commit('setUserData', response.data.data)
+        } catch (error){
+            commit('reset_user') 
+            removeHeaderToken()
+            localStorage.removeItem('token')
+            return error
+        } 
+      }, 
+
+      logout({ commit }) {
+        return new Promise((resolve) => {
+         commit('reset_user')
+         localStorage.removeItem('token')
+         removeHeaderToken()
+         resolve()
         })
-    },
+       },
 
     createUser({commit}, users) {
         axios.post('auth/register', users)

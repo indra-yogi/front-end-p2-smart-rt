@@ -1,5 +1,3 @@
-import axios from 'axios'
-
 let mutations = {
     CREATE_MARITALS(state, maritals) {
         state.maritals.unshift(maritals)
@@ -23,10 +21,14 @@ let mutations = {
         state.divorces.splice(index, 1)
     },
 
-    setUserData(state, userData) {
-        state.user = userData
-        localStorage.setItem('user', JSON.stringify(userData))
-        axios.defaults.headers.common.Authorization = 'Bearer ${userData.token}' 
+    setUserData(state, data) {
+        state.user = data
+        state.authenticated = true
+    },
+    
+    reset_user (state) {
+        state.user = null
+        state.authenticated = false
     },
 
     clearUserData(state, userData) {

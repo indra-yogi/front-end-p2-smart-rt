@@ -22,8 +22,6 @@
                         <br><br>
                         <vs-input type="text" label="NIK" v-model="users.nik" placeholder="NIK"></vs-input>
                         <br><br>
-                        <vs-input type="file" label="Avatar" @change="newAvatar" accept="image/*" name="avatar" id="avatar"></vs-input>
-                        <br><br>
                         <vs-input type="password" label="Password" v-model="users.password" placeholder="Password"></vs-input>
                         <br><br>
                         <vs-input type="password" label="Konfirmasi Password" v-model="users.password_confirmation" placeholder="Password"></vs-input>
@@ -43,6 +41,11 @@
                         <vs-input type="Text" label="Provinsi" v-model="users.province" placeholder="Provinsi"></vs-input>
                         <br><br>
                         <vs-button :disabled="!isValid" flat color="primary" type="submit">Submit</vs-button>
+                        <div v-for="(error, index) in errors" :key="index">
+                            <vs-alert color="danger">
+                            {{ error[0] }}
+                            </vs-alert>
+                        </div>
                     </vs-col>
                 </vs-row>
             </div>
@@ -61,7 +64,6 @@ export default {
                 phone: '',
                 position: '',
                 nik: '',
-                avatar: '',
                 address: '',
                 neighbourhood: '',
                 village: '',
@@ -70,19 +72,17 @@ export default {
                 province: '',
                 password: '',
                 password_confirmation: '',
-            }
+            },
+            errors: null,
         }
     },
     methods: {
-        newAvatar(event) {
-            let files = event.target.files;
-            if (files.length) this.users.avatar = files[0];
-            let fd= new FormData()
-    
-            fd.append('avatar', files)
-        },
         createUser(users) {
-            this.$store.dispatch('createUser', users)
+            this.$store.dispatch('createUser', users).then(response =>{
+        console.log(response)
+      }).catch(error => {
+        this.errors = error.response.data.errors
+      }) 
         },
     },
     computed: {

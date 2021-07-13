@@ -5,7 +5,7 @@
             <template #right>
                 <vs-input type="text" v-model="search" placeholder="Search"/>
                 <vs-button color="rgb(255,255,255)" flat>Search</vs-button>
-                <vs-button flat color="danger" v-if="isLogged" @click="logout()" to="/">Logout</vs-button>
+                <vs-button flat color="danger" @click="logout" to="/">Logout</vs-button>
             </template>
         </vs-navbar>
     </div>
@@ -25,13 +25,16 @@ export default {
         activeSidebar: false,
     }),
     computed: {
-        ...mapGetters([
-            'isLogged'   
-        ])
+        ...mapGetters({
+            isLoggedIn: 'authenticated',
+            user: 'user',   
+        })
     },
     methods: {
-        logout() {
-            this.$store.dispatch('logout')
+        logout: function() {
+            this.$store.dispatch("logout").then(() => {
+            this.$router.push("/");
+            });
         }
     }
 };

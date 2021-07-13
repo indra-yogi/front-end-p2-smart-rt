@@ -44,7 +44,6 @@
             
             </pie-chart>
         </div>
-        
     </div>
 </template>
 
@@ -52,6 +51,7 @@
 import Sidebar from '@/components/Sidebar.vue'
 import Navbar from '@/components/Navbar.vue'
 import PieChart from '../components/PieChart.js'
+import {mapGetters} from 'vuex'
 
 export default {
     name: "Dashboard",
@@ -63,8 +63,15 @@ export default {
     data(){
         return {
             datacollection: null,
-            loaded: false
+            loaded: false,
+            user: {},
         }
+    },
+    computed: {
+      ...mapGetters({ 
+        authenticated: 'authenticated',
+        user: 'user',
+      })
     },
 }
 </script>

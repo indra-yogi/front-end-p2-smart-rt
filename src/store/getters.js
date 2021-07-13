@@ -5,10 +5,16 @@ let getters = {
     divorces: state => {
         return state.divorces
     },
-    isLogged: state => !!state.user,
+    user: state => {
+        return state.user
+    },
+
     users: state => {
         return state.users
     },
+    authenticated: state => {
+        return state.authenticated
+    }
 }
 
 export default getters
