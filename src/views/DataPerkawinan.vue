@@ -32,10 +32,10 @@
               {{ tr.marital_number }}
             </vs-td>
             <vs-td>
-            {{ tr.name }}
+            {{ tr.husband_name }}
             </vs-td>
             <vs-td>
-            {{ tr.alamat }}
+            {{ tr.address }}
             </vs-td>
             <vs-td>
             <vs-button>Preview</vs-button>
