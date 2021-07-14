@@ -5,7 +5,9 @@
         <div class="row">
             <template v-if="authenticated">
                 <form action="#" @submit.prevent="createDivorce(divorces)">
-            <div class="padding-left">
+                <div class="padding-left">
+                <vs-row>
+                <vs-col vs-type="flex" vs-justify="left" vs-align="left" w="6">
               <vs-input type="Text" label="No. Akta Perceraian" v-model="divorces.divorce_number" placeholder="No. Akta Perceraian"></vs-input>
               <br><br>
               <vs-input type="Text" label="No. Akta Perkawinan" v-model="divorces.marital_number" placeholder="No. Akta Perkawinan"></vs-input>
@@ -16,6 +18,8 @@
               <br><br>
               <vs-input type="Text" label="Tempat Perceraian" v-model="divorces.divorce_place" placeholder="Tempat Perceraian"></vs-input>
               <br><br>
+              </vs-col>
+              <vs-col vs-type="flex" vs-justify="left" vs-align="left" w="6">
               <vs-input type="Text" label="Nama Lengkap" v-model="divorces.name" placeholder="Nama"></vs-input>
               <br><br>
               <vs-input type="Text" label="NIK" v-model="divorces.nik" placeholder="NIK"></vs-input>
@@ -28,9 +32,11 @@
               <br><br>
               <vs-input type="Text" label="Alamat" v-model="divorces.address" placeholder="Alamat"></vs-input>
               <br><br>
-              <vs-input type="file" label="Attachment"></vs-input>
+              <vs-input type="file" label="Foto Akta Perceraian "></vs-input>
               <br><br>
               <vs-button flat color="primary" type="submit">Submit</vs-button>
+              </vs-col>
+            </vs-row>
             </div>
             </form>
             </template>

@@ -2,7 +2,7 @@
     <div class="full-height">
         <Sidebar />
         <Navbar msg="Data Perceraian" />
-        <div class="row">
+        <div class="row" v-if="authenticated">
             <div>
               <vs-button flat color="primary" to="AddPerceraian">Add New Data</vs-button>
             </div>
@@ -13,7 +13,10 @@
               No. Akta Perceraian
             </vs-th>
             <vs-th>
-              No. Akta Perkawinan
+              Nama
+            </vs-th>
+            <vs-th>
+              Alamat
             </vs-th>
             <vs-th>
               Action
@@ -30,7 +33,10 @@
               {{ tr.divorce_number }}
             </vs-td>
             <vs-td>
-            {{ tr.marital_number }}
+            {{ tr.name }}
+            </vs-td>
+            <vs-td>
+            {{ tr.address }}
             </vs-td>
             <vs-td>
             <vs-button>Preview</vs-button>
@@ -62,7 +68,9 @@ export default {
     },
     computed: {
       ...mapGetters([
-        'divorces'
+        'divorces',
+        'user',
+        'authenticated'
       ])
     }
 }

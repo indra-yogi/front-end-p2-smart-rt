@@ -64,7 +64,6 @@ export default {
         return {
             datacollection: null,
             loaded: false,
-            user: {},
         }
     },
     computed: {

@@ -81,7 +81,7 @@ let actions = {
         }
         try{ 
           let response = await axios.get('user/profile')
-            commit('setUserData', response.data.data)
+            commit('setUserData', response.data)
         } catch (error){
             commit('reset_user') 
             removeHeaderToken()
