@@ -40,6 +40,14 @@ let mutations = {
     CREATE_USERS(state, users) {
         state.maritals.unshift(users)
     },
+
+    FETCH_USERS(state, users) {
+        return state.users = users
+    },
+
+    GET_TOTAL(state, totals) {
+        return state.totals = totals
+    }
 }
 
 export default mutations

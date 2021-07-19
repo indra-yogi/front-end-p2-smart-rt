@@ -4,7 +4,7 @@
         <Navbar msg="Tambah Data Perceraian" />
         <div class="row">
             <template v-if="authenticated">
-                <form action="#" @submit.prevent="createDivorce(divorces)">
+                <form action="#" @submit.prevent="createDivorce">
                 <div class="padding-left">
                 <vs-row>
                 <vs-col vs-type="flex" vs-justify="left" vs-align="left" w="6">
@@ -14,7 +14,7 @@
               <br><br>
               <vs-input type="Text" label="No. Seri Perceraian" v-model="divorces.divorce_serial_number" placeholder="No. Seri Perceraian"></vs-input>
               <br><br>
-              <vs-input type="Text" label="Tanggal Perceraian" v-model="divorces.divorce_date" placeholder="hari-bulan-tahun"></vs-input>
+              <vs-input type="date" label="Tanggal Perceraian" v-model="divorces.divorce_date"></vs-input>
               <br><br>
               <vs-input type="Text" label="Tempat Perceraian" v-model="divorces.divorce_place" placeholder="Tempat Perceraian"></vs-input>
               <br><br>
@@ -26,15 +26,22 @@
               <br><br>
               <vs-input type="Text" label="Tempat Lahir" v-model="divorces.birth_place" placeholder="Tempat Lahir"></vs-input>
               <br><br>
-              <vs-input type="Text" label="Tanggal Lahir" v-model="divorces.birth_date" placeholder="hari-bulan-tahun"></vs-input>
+              <vs-input type="date" label="Tanggal Lahir" v-model="divorces.birth_date"></vs-input>
               <br><br>
               <vs-input type="Text" label="Agama" v-model="divorces.religion" placeholder="Agama"></vs-input>
               <br><br>
               <vs-input type="Text" label="Alamat" v-model="divorces.address" placeholder="Alamat"></vs-input>
               <br><br>
-              <vs-input type="file" label="Foto Akta Perceraian "></vs-input>
+              <div>
+              <vs-input type="file" accept="image/*" @change="onFileChange" label="Foto Akta Perceraian "></vs-input>
               <br><br>
+              </div>
               <vs-button flat color="primary" type="submit">Submit</vs-button>
+              <div v-for="(error, index) in errors" :key="index">
+                    <vs-alert color="danger">
+                        {{ error[0] }}
+                    </vs-alert>
+              </div>
               </vs-col>
             </vs-row>
             </div>
@@ -69,18 +76,38 @@ export default {
                 birth_date:'',
                 religion:'',
                 address:'',
+                attachment:'',
             },
+            
             errors: null
         }
     },
     methods: {
-     createDivorce(divorces) {
-            this.$store.dispatch('createDivorce', divorces).then(response =>{
-        console.log(response)
-        this.$router.push({name:'DataPerceraian'})
-      }).catch(error => {
-        this.errors = error.response.data.errors
-      }) 
+        createDivorce() {
+            let fd = new FormData();
+
+            fd.append("divorce_number", this.divorces.divorce_number)
+            fd.append("marital_number", this.divorces.marital_number)
+            fd.append("divorce_serial_number", this.divorces.divorce_serial_number)
+            fd.append("divorce_date", this.divorces.divorce_date)
+            fd.append("divorce_place", this.divorces.divorce_place)
+            fd.append("name", this.divorces.name)
+            fd.append("nik", this.divorces.nik)
+            fd.append("birth_place", this.divorces.birth_place)
+            fd.append("birth_date", this.divorces.birth_date)
+            fd.append("religion", this.divorces.religion)
+            fd.append("address", this.divorces.address)
+            fd.append("attachment", this.divorces.attachment)
+
+            this.$store.dispatch('createDivorce', fd).then(response =>{
+            console.log(response)
+            this.$router.push({name:'DataPerceraian'})
+            }).catch(error => {
+            this.errors = error.response.data.errors
+            }) 
+        },
+        onFileChange(e) {
+            this.divorces.attachment = e.target.files[0]
         },
     }, 
     computed: {

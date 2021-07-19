@@ -1,9 +1,10 @@
 <template>
     <div id="dataUser">
         <Sidebar />
-        <Navbar msg="Data User"/>
-        <template v-if="authenticated">
+        <Navbar msg="Administrators"/>
+        <template v-if="authenticated">   
             <div class="row">
+                <vs-button to="AddAdmin">Add a new Adiministrator</vs-button>
                 <vs-table striped>
                     <template #thead>
                         <vs-tr>
@@ -44,13 +45,13 @@ import Navbar from '@/components/Navbar.vue'
 import { mapGetters } from 'vuex'
 
 export default {
-    name: "DataUser",
+    name: "Administrators",
     components: {
         Sidebar,
         Navbar,
     },
     mounted() {
-        this.$store.dispatch('fetchUsers')
+        this.$store.dispatch('fetchAdmins')
     },
     computed: {
         ...mapGetters([
@@ -64,7 +65,7 @@ export default {
 
 <style scoped>
     .row {
-        padding-top: 10%;
-        padding-left: 17%;
+        padding-top: 150px;
+        padding-left: 260px;
     }
 </style>

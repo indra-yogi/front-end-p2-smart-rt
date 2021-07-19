@@ -10,13 +10,18 @@ import DataPerceraian from '../views/DataPerceraian.vue'
 import AddPerceraian from '../views/AddPerceraian.vue'
 import AddPerkawinan from '../views/AddPerkawinan.vue'
 import Register from '../views/Register.vue'
+import DataUser from '../views/DataUser.vue'
+import Administrators from '../views/Administrators.vue'
+import AddAdmin from '../views/AddAdmin.vue'
+import SuratPerkawinan from '../views/SuratPerkawinan.vue'
+import SuratPerceraian from '../views/SuratPerceraian.vue'
 import store from '../store/index.js'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
+    path: '/home',
     name: 'Home',
     component: Home,
     meta: {
@@ -24,7 +29,7 @@ const routes = [
     }
   },
   {
-    path: '/dashboard',
+    path: '/',
     name: 'Dashboard',
     component: Dashboard,
     meta: {
@@ -68,6 +73,31 @@ const routes = [
     path: '/register',
     name: 'Register',
     component: Register
+  },
+  {
+    path: '/dataUser',
+    name: 'DataUser',
+    component: DataUser
+  },
+  {
+    path: '/administrators',
+    name: 'Administrators',
+    component: Administrators,
+  },
+  {
+    path: '/addAdmin',
+    name: 'AddAdmin',
+    component: AddAdmin,
+  },
+  {
+    path: '/suratPerkawinan',
+    name: 'SuratPerkawinan',
+    component: SuratPerkawinan,
+  },
+  {
+    path: '/suratPerceraian',
+    name: 'SuratPerceraian',
+    component: SuratPerceraian,
   },
 ]
 

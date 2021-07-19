@@ -14,7 +14,10 @@ let getters = {
     },
     authenticated: state => {
         return state.authenticated
-    }
+    },
+    totals: state => {
+        return state.totals
+    },
 }
 
 export default getters

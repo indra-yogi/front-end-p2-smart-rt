@@ -9,7 +9,7 @@ export default {
         {
             label: 'Data One',
             backgroundColor: ['#00ff00', '#ffa500'],
-            data: [380, 120]
+            data: [120, 120]
         },
         ]
     },

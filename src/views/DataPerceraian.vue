@@ -3,11 +3,8 @@
         <Sidebar />
         <Navbar msg="Data Perceraian" />
         <div class="row" v-if="authenticated">
-            <div>
-              <vs-button flat color="primary" to="AddPerceraian">Add New Data</vs-button>
-            </div>
-                <vs-table striped>
-        <template #thead>
+          <vs-table striped>
+          <template #thead>
           <vs-tr>
             <vs-th>
               No. Akta Perceraian

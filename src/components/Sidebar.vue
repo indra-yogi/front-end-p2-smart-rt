@@ -7,9 +7,10 @@
         square
         >
         <h1>Aplikasi P2</h1>
-        <vs-sidebar-item id="Dashboard" to="Dashboard">
+        <vs-sidebar-item id="Dashboard" to="/">
             Dashboard
         </vs-sidebar-item>
+        <template v-if="authenticated">
         <vs-sidebar-group>
             <template #header>
                 <vs-sidebar-item arrow id="Perkawinan">
@@ -19,8 +20,8 @@
             <vs-sidebar-item id="DataPerkawinan" to="DataPerkawinan">
                 Data Perkawinan
             </vs-sidebar-item>
-            <vs-sidebar-item id="InformasiPerkawinan" to="InfoPerkawinan">
-                Informasi Perkawinan
+            <vs-sidebar-item id="AddPerkawinan" to="AddPerkawinan">
+                Pengajuan Data Perkawinan
             </vs-sidebar-item>
         </vs-sidebar-group>
         <vs-sidebar-group>
@@ -32,10 +33,26 @@
             <vs-sidebar-item id="DataPerceraian" to="DataPerceraian">
                 Data Perceraian
             </vs-sidebar-item>
-            <vs-sidebar-item id="InformasiPerceraian">
-                Informasi Perceraian
+            <vs-sidebar-item id="AddPerceraian" to="AddPerceraian">
+                Pengajuan Data Perceraian
             </vs-sidebar-item>
         </vs-sidebar-group>
+        <template v-if="user.role_id === (1 || 3)">
+            <vs-sidebar-group>
+                <template #header>
+                    <vs-sidebar-item arrow id="PanelAdmin">
+                        Panel Admin
+                    </vs-sidebar-item>
+                </template>
+                <vs-sidebar-item id="DataUser" to="DataUser">
+                    Data User
+                </vs-sidebar-item>
+                <vs-sidebar-item id="Administrators" to="Administrators">
+                    Administrators
+                </vs-sidebar-item>
+            </vs-sidebar-group>
+        </template>
+        </template>
         <vs-sidebar-item id="Kontak" to="About">
             Kontak Kami
         </vs-sidebar-item>
@@ -45,6 +62,8 @@
 </template>
 
 <script>
+import {mapGetters} from 'vuex'
+
 export default {
     name: "Sidebar",
     props: {
@@ -54,6 +73,13 @@ export default {
         active: "0",
         activeSidebar: false,
     }),
+
+    computed: {
+        ...mapGetters({
+            user: 'user',
+            authenticated: 'authenticated',
+        })
+    }
 };
 </script>
 

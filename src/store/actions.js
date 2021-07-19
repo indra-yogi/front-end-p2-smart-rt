@@ -107,6 +107,40 @@ let actions = {
                 console.log(err)
             })
     },
+
+    createAdmin({commit}, users) {
+        axios.post('auth/adminReg', users)
+            .then(res => {
+                commit('CREATE_USERS', res.data)
+            }).catch(err => {
+                console.log(err)
+            })
+    },
+
+    fetchUsers({commit}) {
+        axios.get('user/index')
+            .then(res => {
+                commit('FETCH_USERS', res.data)
+            }).catch(err => {
+                console.log(err)
+            })
+    },
+    fetchAdmins({commit}) {
+        axios.get('user/allAdmin')
+            .then(res => {
+                commit('FETCH_USERS', res.data)
+            }).catch(err => {
+                console.log(err)
+            })
+    },
+    fetchTotals({commit}) {
+        axios.get('marital/totalCount')
+            .then(res => {
+                commit('GET_TOTAL', res.data)
+            }).catch(err => {
+                console.log(err)
+            })
+    },
 }
 
 export default actions

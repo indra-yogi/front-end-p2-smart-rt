@@ -8,6 +8,9 @@
                 <vs-button color="rgb(255,255,255)" flat>Search</vs-button>
                 <vs-button flat color="danger" @click="logout" to="/">Logout</vs-button>
             </template>
+            <template v-else #right>
+                <vs-button color="primary" to="Home">Login</vs-button>
+            </template>
         </vs-navbar>
     </div>
 

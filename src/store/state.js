@@ -4,6 +4,7 @@ let state = {
     authenticated: false,
     divorces: [],
     users: [],
+    totals: [],
 }
 
 export default state

@@ -12,7 +12,7 @@
                         <vs-input type="date" class="center">
                         </vs-input>
                         <br>
-                        <h2>Total --</h2>
+                        <h2>Total {{ totals.totalFull }}</h2>
                     </template>
                 </vs-card>
             </div>
@@ -23,7 +23,7 @@
                         <vs-input type="text" class="center">
                         </vs-input>
                         <br>
-                        <h2>Total --</h2>
+                        <h2>Total {{totals.totalPerkawinan}}</h2>
                     </template>
                 </vs-card>
             </div>
@@ -34,7 +34,7 @@
                         <vs-input type="text" class="center">
                         </vs-input>
                         <br>
-                        <h2>Total --</h2>
+                        <h2>Total {{totals.totalPerceraian}}</h2>
                     </template>
                 </vs-card>
             </div>
@@ -66,10 +66,14 @@ export default {
             loaded: false,
         }
     },
+    mounted(){
+        this.$store.dispatch('fetchTotals')
+    },
     computed: {
       ...mapGetters({ 
         authenticated: 'authenticated',
         user: 'user',
+        totals: 'totals',
       })
     },
 }

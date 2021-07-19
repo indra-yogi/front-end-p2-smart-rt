@@ -4,7 +4,6 @@
         <Navbar msg="Data Perkawinan" />
         <div class="row">
             <div>
-              <vs-button flat color="primary" class="center" to="AddPerkawinan">Add New Data</vs-button>
                 <vs-table striped>
         <template #thead>
           <vs-tr>
@@ -101,7 +100,7 @@ export default {
 /* Clear floats after the columns */
     .row:after {
     content: "";
-    display: table;
+    display: inline-block;
     clear: both;
 }
 
