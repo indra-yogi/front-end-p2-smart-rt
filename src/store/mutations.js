@@ -9,6 +9,14 @@ let mutations = {
         let index = state.maritals.findIndex(item => item.id === maritals.id)
         state.maritals.splice(index, 1)
     },
+    UPDATE_MARITALS(state, marital) {
+        let i = state.maritals.findIndex(maritals => maritals.id === marital.id)
+        state.maritals[i] = marital
+    },
+
+    setMaritalData(state, marital) {
+        state.marital = marital
+    },
 
     CREATE_DIVORCES(state, divorces) {
         state.maritals.unshift(divorces)
@@ -16,9 +24,17 @@ let mutations = {
     FETCH_DIVORCES(state, divorces) {
         return state.divorces = divorces
     },
-    DELETE_Divorces(state, divorces) {
-        let index = state.divorces.findIndex(item => item.id === divorces.id)
-        state.divorces.splice(index, 1)
+    DELETE_DIVORCES(state, divorce) {
+        let i = state.divorces.findIndex(divorces => divorces.id === divorce.id)
+        state.divorces.splice(i, 1)
+    },
+    UPDATE_DIVORCES(state, divorce) {
+        let i = state.divorces.findIndex(divorces => divorces.id === divorce.id)
+        state.divorces[i] = divorce
+    },
+
+    setDivorceData(state, data) {
+        return state.divorce = data
     },
 
     setUserData(state, data) {
@@ -47,6 +63,10 @@ let mutations = {
 
     GET_TOTAL(state, totals) {
         return state.totals = totals
+    },
+
+    FETCH_IMAGE(state, image) {
+        return state.image = image
     }
 }
 

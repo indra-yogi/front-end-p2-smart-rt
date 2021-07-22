@@ -21,11 +21,37 @@ let actions = {
             })
     },
 
+    fetchAllMarital({commit}) {
+        axios.get('marital/getAll')
+            .then(res => {
+                commit('FETCH_MARITALS', res.data)
+            }).catch(err => {
+                console.log(err)
+            })
+    },
+
     deleteMarital({commit}, marital) {
-        axios.delete('marital/delete/${marital.id}')
+        axios.delete(`marital/delete/${marital}`)
             .then(res => {
                 if(res.data === 'ok')
-                    commit('DELETE_MARITAL', marital)
+                    commit('DELETE_MARITALS', marital)
+            }).catch(err => {
+                console.log(err)
+            })
+    },
+
+    getMaritalbyId({commit}, maritalId) {
+        axios.get(`marital/show/${maritalId}`)
+            .then(res => {
+                commit('setMaritalData', res.data)
+            }).catch(err => {
+                console.log(err)
+            })
+    },
+    updateMarital({commit}, marital) {
+        axios.put(`marital/statusUpdate/${marital}`)
+            .then(res => {
+                commit('UPDATE_MARITALS', res.data)
             }).catch(err => {
                 console.log(err)
             })
@@ -48,12 +74,38 @@ let actions = {
                 console.log(err)
             })
     },
+    fetchAllDivorce({commit}) {
+        axios.get('divorce/getAll')
+            .then(res => {
+                commit('FETCH_DIVORCES', res.data)
+            }).catch(err => {
+                console.log(err)
+            })
+    },
 
     deleteDivorce({commit}, divorce) {
-        axios.delete('divorce/delete/${divorce.id}')
+        axios.delete(`divorce/delete/${divorce}`)
             .then(res => {
                 if(res.data === 'ok')
                     commit('DELETE_DIVORCES', divorce)
+            }).catch(err => {
+                console.log(err)
+            })
+    },
+
+    updateDivorce({commit}, divorce) {
+        axios.put(`divorce/statusUpdate/${divorce}`)
+            .then(res => {
+                commit('UPDATE_DIVORCES', res.data)
+            }).catch(err => {
+                console.log(err)
+            })
+    },
+
+    getDivorcebyId({commit}, divorceId) {
+        axios.get(`divorce/show/${divorceId}`)
+            .then(res => {
+                commit('setDivorceData', res.data)
             }).catch(err => {
                 console.log(err)
             })
@@ -141,6 +193,26 @@ let actions = {
                 console.log(err)
             })
     },
+
+    fetchMaritalImage({commit}, image) {
+        axios.get(`marital/img/${image}`)
+            .then(res => {
+                commit('FETCH_IMAGE', res.data[0].marital_attachment)
+            }).catch(err => {
+                console.log(err)
+            })
+    },
+    
+    fetchDivorceImage({commit}, image) {
+        axios.get(`divorce/img/${image}`)
+            .then(res => {
+                commit('FETCH_IMAGE', res.data[0].attachment)
+            }).catch(err => {
+                console.log(err)
+            })
+    }
+
+    
 }
 
 export default actions

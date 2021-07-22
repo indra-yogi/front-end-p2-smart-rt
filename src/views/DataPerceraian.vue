@@ -36,8 +36,7 @@
             {{ tr.address }}
             </vs-td>
             <vs-td>
-            <vs-button>Preview</vs-button>
-            <vs-button color="success">Download</vs-button>
+            <vs-button :to="{name: 'SuratPerceraian', params: {id: tr.id}}">Preview</vs-button>
             </vs-td>
           </vs-tr>
         </template>
@@ -58,7 +57,7 @@ export default {
         Navbar,
     },
     mounted() {
-      this.$store.dispatch('fetchDivorce')
+      this.$store.dispatch('fetchAllDivorce')
     },
     methods: {
       

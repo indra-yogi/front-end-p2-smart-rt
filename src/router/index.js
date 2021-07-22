@@ -15,6 +15,10 @@ import Administrators from '../views/Administrators.vue'
 import AddAdmin from '../views/AddAdmin.vue'
 import SuratPerkawinan from '../views/SuratPerkawinan.vue'
 import SuratPerceraian from '../views/SuratPerceraian.vue'
+import ValidasiPerkawinan from '../views/ValidasiPerkawinan.vue'
+import ValidasiPerceraian from '../views/ValidasiPerceraian.vue'
+import ValidasiDataPerkawinan from '../views/ValidasiDataPerkawinan.vue'
+import ValidasiDataPerceraian from '../views/ValidasiDataPerceraian.vue'
 import store from '../store/index.js'
 
 Vue.use(VueRouter)
@@ -90,14 +94,39 @@ const routes = [
     component: AddAdmin,
   },
   {
-    path: '/suratPerkawinan',
+    path: '/suratPerkawinan/:id',
     name: 'SuratPerkawinan',
     component: SuratPerkawinan,
+    props: true
+    
   },
   {
-    path: '/suratPerceraian',
+    path: '/suratPerceraian/:id',
     name: 'SuratPerceraian',
     component: SuratPerceraian,
+    props: true
+  },
+  {
+    path: '/validasiPerkawinan',
+    name: 'ValidasiPerkawinan',
+    component: ValidasiPerkawinan,
+  },
+  {
+    path: '/validasiPerceraian',
+    name: 'ValidasiPerceraian',
+    component: ValidasiPerceraian
+  },
+  {
+    path: '/validasiDataPerceraian/:id',
+    name: 'ValidasiDataPerceraian',
+    component: ValidasiDataPerceraian,
+    props: true,
+  },
+  {
+    path: '/validasiDataPerkawinan/:id',
+    name: 'ValidasiDataPerkawinan',
+    component: ValidasiDataPerkawinan,
+    props: true,
   },
 ]
 

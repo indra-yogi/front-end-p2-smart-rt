@@ -1,14 +1,13 @@
 <template>
     <div class="full-height">
         <Sidebar />
-        <Navbar msg="Data Perkawinan" />
+        <Navbar msg="Validasi Perceraian" />
         <div class="row" v-if="authenticated">
-            <div>
-                <vs-table striped>
-        <template #thead>
+          <vs-table striped>
+          <template #thead>
           <vs-tr>
             <vs-th>
-              No. Akta Perkawinan
+              No. Akta Perceraian
             </vs-th>
             <vs-th>
               Nama
@@ -24,26 +23,25 @@
         <template #tbody>
           <vs-tr
             :key="i"
-            v-for="(tr, i) in maritals"
+            v-for="(tr, i) in divorces"
             :data="tr"
           >
             <vs-td>
-              {{ tr.marital_number }}
+              {{ tr.divorce_number }}
             </vs-td>
             <vs-td>
-            {{ tr.husband_name }}
+            {{ tr.name }}
             </vs-td>
             <vs-td>
             {{ tr.address }}
             </vs-td>
             <vs-td>
-            <vs-button :to="{name: 'SuratPerkawinan', params: {id: tr.id }}">Preview</vs-button>
+            <vs-button :to="{name: 'ValidasiDataPerceraian', params: { id: tr.id }}">Validasi Data</vs-button>
             </vs-td>
           </vs-tr>
         </template>
       </vs-table>
-            </div>
-        </div>    
+      </div>
     </div>
 </template>
 
@@ -53,20 +51,20 @@ import Navbar from '../components/Navbar.vue'
 import {mapGetters} from 'vuex'
 
 export default {
-    name: "DataPerkawinan",
+    name: "ValidasiPerceraian",
     components: {
         Sidebar,
         Navbar,
     },
     mounted() {
-      this.$store.dispatch('fetchAllMarital')
+      this.$store.dispatch('fetchDivorce')
     },
     methods: {
       
     },
     computed: {
       ...mapGetters([
-        'maritals',
+        'divorces',
         'user',
         'authenticated'
       ])
@@ -94,14 +92,14 @@ export default {
 
     .row {
         padding-top: 125px;
-        padding-left: 250px;
+        padding-left: 260px;
 
 
 }
 /* Clear floats after the columns */
     .row:after {
     content: "";
-    display: inline-block;
+    display: table;
     clear: both;
 }
 
@@ -124,16 +122,5 @@ export default {
 
 .side{
     margin-right: 40px;
-}
-
-.center {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        
-}
-
-.padding-left {
-  padding-left: 90px;
 }
 </style>

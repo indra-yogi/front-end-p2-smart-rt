@@ -2,7 +2,7 @@
     <div class="full-height">
         <Sidebar />
         <Navbar msg="Data Perkawinan" />
-        <div class="row" v-if="authenticated">
+        <div class="row">
             <div>
                 <vs-table striped>
         <template #thead>
@@ -37,7 +37,7 @@
             {{ tr.address }}
             </vs-td>
             <vs-td>
-            <vs-button :to="{name: 'SuratPerkawinan', params: {id: tr.id }}">Preview</vs-button>
+            <vs-button :to="{name: 'ValidasiDataPerkawinan', params: { id: tr.id }}">Preview</vs-button>
             </vs-td>
           </vs-tr>
         </template>
@@ -53,16 +53,18 @@ import Navbar from '../components/Navbar.vue'
 import {mapGetters} from 'vuex'
 
 export default {
-    name: "DataPerkawinan",
+    name: "ValidasiPerkawinan",
     components: {
         Sidebar,
         Navbar,
     },
     mounted() {
-      this.$store.dispatch('fetchAllMarital')
+      this.$store.dispatch('fetchMarital')
     },
     methods: {
-      
+      deleteMarital(marital) {
+        this.$store.dispatch('deleteMarital', marital)
+      }
     },
     computed: {
       ...mapGetters([

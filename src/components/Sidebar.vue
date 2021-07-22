@@ -1,5 +1,5 @@
 <template>
-    <div class="sidebar">
+    <div class="full-height">
         <vs-sidebar
         absolute
         v-model="active"
@@ -23,6 +23,11 @@
             <vs-sidebar-item id="AddPerkawinan" to="AddPerkawinan">
                 Pengajuan Data Perkawinan
             </vs-sidebar-item>
+             <template v-if="user.role_id === (1 || 3)">
+                 <vs-sidebar-item id="validasiPerkawinan" to="ValidasiPerkawinan">
+                    Validasi Perkawinan
+                </vs-sidebar-item>
+             </template>
         </vs-sidebar-group>
         <vs-sidebar-group>
             <template #header>
@@ -36,6 +41,11 @@
             <vs-sidebar-item id="AddPerceraian" to="AddPerceraian">
                 Pengajuan Data Perceraian
             </vs-sidebar-item>
+            <template v-if="user.role_id === (1 || 3)">
+                 <vs-sidebar-item id="validasiPerceraian" to="ValidasiPerceraian">
+                    ValidasiPerceraian
+                </vs-sidebar-item>
+             </template>
         </vs-sidebar-group>
         <template v-if="user.role_id === (1 || 3)">
             <vs-sidebar-group>
@@ -84,6 +94,10 @@ export default {
 </script>
 
 <style>
+    .full-height {
+    height: 100%;
+    }  
+
     vs-sidebar {
         border-radius: 0px;
     }
