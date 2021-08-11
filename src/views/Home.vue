@@ -36,13 +36,14 @@
 </template>
 
 <script>
+import {notyError, notySuccess} from "../utils/noty";
 // @ is an alias to /src
 
 export default {
   name: 'Home',
   data: () => ({
     active: "0",
-    activeSidebar: false,
+    activeSidebar: true,
     form: {
       nik: '',
       password: ''
@@ -51,13 +52,14 @@ export default {
   }),
 
   methods: {
-    userLogin() {
-      this.$store.dispatch('login', this.form).then(response =>{
-        console.log(response)
+    async userLogin() {
+      try {
+        await this.$store.dispatch('authLogin', this.form)
+        notySuccess("Login berhasil")
         this.$router.push({name:'Dashboard'})
-      }).catch(error => {
-        this.errors = error.response.data.errors
-      }) 
+      } catch (e) {
+        notyError("NIK atau password salah")
+      }
     }
   },
 

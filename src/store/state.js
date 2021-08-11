@@ -3,11 +3,14 @@ let state = {
     divorces: [],
     users: [],
     totals: [],
-    user: null,
     marital: null,
     divorce: null,
     image: null,
-    authenticated: false,
+    auth: {
+        token: null,
+        user: null,
+        authenticated: false,
+    }
 }
 
 export default state

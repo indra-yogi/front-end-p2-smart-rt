@@ -1,6 +1,5 @@
 import axios from "axios"
-import { setHeaderToken } from '../utils/auth';
-import { removeHeaderToken } from '../utils/auth';
+import {authApiCurrentUser, authApiLogin} from "../api/authApi";
 
 let actions = {
     createMarital({commit}, maritals) {
@@ -8,8 +7,8 @@ let actions = {
             .then(res => {
                 commit('CREATE_MARITALS', res.data)
             }).catch(err => {
-                console.log(err)
-            })
+            console.log(err)
+        })
     },
 
     fetchMarital({commit}) {
@@ -17,8 +16,8 @@ let actions = {
             .then(res => {
                 commit('FETCH_MARITALS', res.data)
             }).catch(err => {
-                console.log(err)
-            })
+            console.log(err)
+        })
     },
 
     fetchAllMarital({commit}) {
@@ -26,18 +25,18 @@ let actions = {
             .then(res => {
                 commit('FETCH_MARITALS', res.data)
             }).catch(err => {
-                console.log(err)
-            })
+            console.log(err)
+        })
     },
 
     deleteMarital({commit}, marital) {
         axios.delete(`marital/delete/${marital}`)
             .then(res => {
-                if(res.data === 'ok')
+                if (res.data === 'ok')
                     commit('DELETE_MARITALS', marital)
             }).catch(err => {
-                console.log(err)
-            })
+            console.log(err)
+        })
     },
 
     getMaritalbyId({commit}, maritalId) {
@@ -45,16 +44,16 @@ let actions = {
             .then(res => {
                 commit('setMaritalData', res.data)
             }).catch(err => {
-                console.log(err)
-            })
+            console.log(err)
+        })
     },
     updateMarital({commit}, marital) {
         axios.put(`marital/statusUpdate/${marital}`)
             .then(res => {
                 commit('UPDATE_MARITALS', res.data)
             }).catch(err => {
-                console.log(err)
-            })
+            console.log(err)
+        })
     },
 
     createDivorce({commit}, divorce) {
@@ -62,8 +61,8 @@ let actions = {
             .then(res => {
                 commit('CREATE_DIVORCES', res.data)
             }).catch(err => {
-                console.log(err)
-            })
+            console.log(err)
+        })
     },
 
     fetchDivorce({commit}) {
@@ -71,26 +70,26 @@ let actions = {
             .then(res => {
                 commit('FETCH_DIVORCES', res.data)
             }).catch(err => {
-                console.log(err)
-            })
+            console.log(err)
+        })
     },
     fetchAllDivorce({commit}) {
         axios.get('divorce/getAll')
             .then(res => {
                 commit('FETCH_DIVORCES', res.data)
             }).catch(err => {
-                console.log(err)
-            })
+            console.log(err)
+        })
     },
 
     deleteDivorce({commit}, divorce) {
         axios.delete(`divorce/delete/${divorce}`)
             .then(res => {
-                if(res.data === 'ok')
+                if (res.data === 'ok')
                     commit('DELETE_DIVORCES', divorce)
             }).catch(err => {
-                console.log(err)
-            })
+            console.log(err)
+        })
     },
 
     updateDivorce({commit}, divorce) {
@@ -98,8 +97,8 @@ let actions = {
             .then(res => {
                 commit('UPDATE_DIVORCES', res.data)
             }).catch(err => {
-                console.log(err)
-            })
+            console.log(err)
+        })
     },
 
     getDivorcebyId({commit}, divorceId) {
@@ -107,57 +106,47 @@ let actions = {
             .then(res => {
                 commit('setDivorceData', res.data)
             }).catch(err => {
-                console.log(err)
-            })
-    },
-
-    login({ dispatch, commit }, data) {
-        return new Promise((resolve, reject) =>{
-            axios.post('auth/login', data).then(response => {
-                const token = response.data.content.access_token
-                localStorage.setItem('token', token)
-                setHeaderToken(token)
-                dispatch('get_user')
-                resolve(response)
-            }).catch(err => {
-                commit('reset_user')
-                localStorage.removeItem('token')
-                reject(err)
-            })
+            console.log(err)
         })
     },
+    async authLogin({dispatch, commit, getters}, data) {
+        try {
+            const loginResponse = await authApiLogin(data)
+            const authData = getters.auth
 
-    async get_user({commit}){ 
-        if(!localStorage.getItem('token')){
-          return
+            authData.token = loginResponse.content.access_token
+            authData.authenticated = true
+
+            commit('AUTH_SET_AUTH_DATA', authData)
+            await dispatch('authGetUser')
+        } catch (e) {
+            commit('AUTH_RESET_AUTH_DATA')
+            throw e
         }
-        try{ 
-          let response = await axios.get('user/profile')
-            commit('setUserData', response.data)
-        } catch (error){
-            commit('reset_user') 
-            removeHeaderToken()
-            localStorage.removeItem('token')
-            return error
-        } 
-      }, 
+    },
+    async authGetUser({commit, getters}) {
+        try {
+            let getUserResponse = await authApiCurrentUser(getters.auth.token)
 
-      logout({ commit }) {
-        return new Promise((resolve) => {
-         commit('reset_user')
-         localStorage.removeItem('token')
-         removeHeaderToken()
-         resolve()
-        })
-       },
+            const authData = getters.auth
+            authData.user = getUserResponse
 
+            commit('AUTH_SET_AUTH_DATA', authData)
+        } catch (e) {
+            commit('AUTH_RESET_AUTH_DATA')
+            throw e
+        }
+    },
+    authLogout({commit}) {
+        commit('AUTH_RESET_AUTH_DATA')
+    },
     createUser({commit}, users) {
         axios.post('auth/register', users)
             .then(res => {
                 commit('CREATE_USERS', res.data)
             }).catch(err => {
-                console.log(err)
-            })
+            console.log(err)
+        })
     },
 
     createAdmin({commit}, users) {
@@ -165,8 +154,8 @@ let actions = {
             .then(res => {
                 commit('CREATE_USERS', res.data)
             }).catch(err => {
-                console.log(err)
-            })
+            console.log(err)
+        })
     },
 
     fetchUsers({commit}) {
@@ -174,24 +163,24 @@ let actions = {
             .then(res => {
                 commit('FETCH_USERS', res.data)
             }).catch(err => {
-                console.log(err)
-            })
+            console.log(err)
+        })
     },
     fetchAdmins({commit}) {
         axios.get('user/allAdmin')
             .then(res => {
                 commit('FETCH_USERS', res.data)
             }).catch(err => {
-                console.log(err)
-            })
+            console.log(err)
+        })
     },
     fetchTotals({commit}) {
         axios.get('marital/totalCount')
             .then(res => {
                 commit('GET_TOTAL', res.data)
             }).catch(err => {
-                console.log(err)
-            })
+            console.log(err)
+        })
     },
 
     fetchMaritalImage({commit}, image) {
@@ -199,20 +188,20 @@ let actions = {
             .then(res => {
                 commit('FETCH_IMAGE', res.data[0].marital_attachment)
             }).catch(err => {
-                console.log(err)
-            })
+            console.log(err)
+        })
     },
-    
+
     fetchDivorceImage({commit}, image) {
         axios.get(`divorce/img/${image}`)
             .then(res => {
                 commit('FETCH_IMAGE', res.data[0].attachment)
             }).catch(err => {
-                console.log(err)
-            })
+            console.log(err)
+        })
     }
 
-    
+
 }
 
 export default actions

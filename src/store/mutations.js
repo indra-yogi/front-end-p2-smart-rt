@@ -36,35 +36,26 @@ let mutations = {
     setDivorceData(state, data) {
         return state.divorce = data
     },
-
-    setUserData(state, data) {
-        state.user = data
-        state.authenticated = true
+    AUTH_RESET_AUTH_DATA(state) {
+        state.auth = {
+            token: null,
+            user: null,
+            authenticated: false
+        }
     },
-    
-    reset_user (state) {
-        state.user = null
-        state.authenticated = false
+    AUTH_SET_AUTH_DATA(state, data) {
+        state.auth = {
+            token: data.token,
+            user: data.user,
+            authenticated: data.authenticated
+        }
     },
-
-    clearUserData(state, userData) {
-        state.user = userData
-        localStorage.removeItem('user', JSON.stringify(userData))
-        location.reload()
-    },
-
     CREATE_USERS(state, users) {
         state.maritals.unshift(users)
     },
-
-    FETCH_USERS(state, users) {
-        return state.users = users
-    },
-
     GET_TOTAL(state, totals) {
         return state.totals = totals
     },
-
     FETCH_IMAGE(state, image) {
         return state.image = image
     }

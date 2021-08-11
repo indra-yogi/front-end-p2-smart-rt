@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import axios from 'axios'
+import VuexPersistence from 'vuex-persist'
 
 import actions from './actions'
 import getters from './getters'
@@ -9,11 +9,15 @@ import state from './state'
 
 Vue.use(Vuex)
 
-axios.defaults.baseURL = 'http://localhost:8000/api/'
+const vuexLocal = new VuexPersistence({
+    key: "vuex",
+    storage: window.localStorage
+})
 
 export default new Vuex.Store({
     state,
     actions,
     mutations,
     getters,
+    plugins: [vuexLocal.plugin]
 })

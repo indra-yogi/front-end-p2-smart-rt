@@ -29,7 +29,7 @@ const routes = [
     name: 'Home',
     component: Home,
     meta: {
-      guest: true
+      auth: false
     }
   },
   {
@@ -37,7 +37,7 @@ const routes = [
     name: 'Dashboard',
     component: Dashboard,
     meta: {
-      auth: true
+      auth: false
     }
   },
   {
@@ -87,11 +87,19 @@ const routes = [
     path: '/administrators',
     name: 'Administrators',
     component: Administrators,
+    meta: {
+      auth: true,
+      role: ["superadmin"]
+    }
   },
   {
     path: '/addAdmin',
     name: 'AddAdmin',
     component: AddAdmin,
+    meta: {
+      auth: true,
+      role: ["superadmin"]
+    }
   },
   {
     path: '/suratPerkawinan/:id',
@@ -136,24 +144,19 @@ const router = new VueRouter({
   routes
 })
 
-router.beforeEach((to, from, next) => { 
-  if (to.matched.some(record => record.meta.auth)) {
-    if (store.getters.authenticated && store.getters.user) {
-      next()
-      return
+router.beforeEach((to, from, next) => {
+  if (to.meta.auth) {
+    if (store.getters.auth.authenticated) {
+      if (to.meta.role.includes(store.getters.auth.user.role.name)) {
+        next()
+        return
+      }
     }
-    next()
+    next('/')
+    return
   }
-
-  if (to.matched.some(record => record.meta.guest)) {
-    if (!store.getters.authenticated) {
-      next()
-      return
-    }
-    next()
-  }
-
   next()
+  return
 })
 
 
