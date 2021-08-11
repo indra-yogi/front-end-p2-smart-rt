@@ -15,6 +15,24 @@ export const postApi = async (url, body, token = null) => {
     return await request.json()
 }
 
+export const postApiFormData = async(url, body, token = null) => {
+    const request = await fetch(`${process.env.VUE_APP_BASE_URL_API}/${url}`, {
+        method: "POST",
+        mode: "cors",
+        headers: {
+            "Authorization": token
+        },
+        body: body
+    })
+
+    if (request.status >= 400) {
+        let response = await request.json()
+        throw new Error(response)
+    }
+
+    return await request.json()
+}
+
 export const getApi = async (url, token = null) => {
     // eslint-disable-next-line no-useless-catch
     const request = await fetch(`${process.env.VUE_APP_BASE_URL_API}/${url}`, {
@@ -49,11 +67,18 @@ export const deleteApi = async (url, token = null) => {
 
 export const putApi = async (url, body, token = null) => {
     // eslint-disable-next-line no-useless-catch
+    let requestBody = null
+    if (body != null) {
+        requestBody = JSON.stringify(body)
+    } else {
+        requestBody = null
+    }
+
     const request = await fetch(`${process.env.VUE_APP_BASE_URL_API}/${url}`, {
         method: "PUT",
         mode: "cors",
         headers: generateHeaders(token),
-        body: JSON.stringify(body)
+        body: requestBody
     })
 
     if (request.status >= 400) {

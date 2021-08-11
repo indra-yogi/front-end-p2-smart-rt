@@ -10,6 +10,7 @@ import router from './router';
 import store from './store';
 import './assets/css/main.css';
 import VueApexCharts from "vue-apexcharts";
+import VueHtmlToPaper from 'vue-html-to-paper';
 
 Vue.use(
   Vuesax, 
@@ -17,6 +18,23 @@ Vue.use(
   //option here
 )
 Vue.component('apexchart', VueApexCharts);
+
+const options = {
+  name: '_blank',
+  specs: [
+    'fullscreen=yes',
+    'titlebar=yes',
+    'scrollbars=no'
+  ],
+  styles: [
+    "https://cdn.jsdelivr.net/npm/vuesax/dist/vuesax.css"
+  ],
+  timeout: 1000, // default timeout before the print window appears
+  autoClose: true, // if false, the window will not close after printing
+  windowTitle: window.document.title, // override the window title
+}
+
+Vue.use(VueHtmlToPaper, options);
 
 Vue.config.productionTip = false
 new Vue({

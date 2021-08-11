@@ -14,39 +14,33 @@
         Kontak Kami
       </vs-sidebar-item>
       <template v-if="auth.authenticated">
-        <vs-sidebar-group v-if="['admin'].includes(auth.user.role.name)">
+        <vs-sidebar-group v-if="['admin', 'user'].includes(auth.user.role.name)">
           <template #header>
             <vs-sidebar-item arrow id="Perkawinan">
               Perkawinan
             </vs-sidebar-item>
           </template>
-          <vs-sidebar-item id="DataPerkawinan" to="DataPerkawinan">
-            Data Perkawinan
-          </vs-sidebar-item>
-          <vs-sidebar-item id="AddPerkawinan" to="AddPerkawinan">
+          <vs-sidebar-item id="AddPerkawinan" to="AddPerkawinan" v-if="['user'].includes(auth.user.role.name)">
             Pengajuan Data Perkawinan
           </vs-sidebar-item>
-          <template v-if="auth.user.role_id === (1 || 3)">
-            <vs-sidebar-item id="validasiPerkawinan" to="ValidasiPerkawinan">
-              Validasi Perkawinan
+          <template v-if="['admin', 'user'].includes(auth.user.role.name)">
+            <vs-sidebar-item id="dataPerkawinan" to="dataPerkawinan">
+              Data Perkawinan
             </vs-sidebar-item>
           </template>
         </vs-sidebar-group>
-        <vs-sidebar-group v-if="['admin'].includes(auth.user.role.name)">
+        <vs-sidebar-group v-if="['admin', 'user'].includes(auth.user.role.name)">
           <template #header>
             <vs-sidebar-item arrow id="Perceraian">
               Perceraian
             </vs-sidebar-item>
           </template>
-          <vs-sidebar-item id="DataPerceraian" to="DataPerceraian">
-            Data Perceraian
-          </vs-sidebar-item>
-          <vs-sidebar-item id="AddPerceraian" to="AddPerceraian">
+          <vs-sidebar-item id="AddPerceraian" to="AddPerceraian" v-if="['user'].includes(auth.user.role.name)">
             Pengajuan Data Perceraian
           </vs-sidebar-item>
-          <template v-if="auth.user.role_id === (1 || 3)">
-            <vs-sidebar-item id="validasiPerceraian" to="ValidasiPerceraian">
-              ValidasiPerceraian
+          <template v-if="['admin', 'user'].includes(auth.user.role.name)">
+            <vs-sidebar-item id="validasiPerceraian" to="dataPerceraian">
+              Data Perceraian
             </vs-sidebar-item>
           </template>
         </vs-sidebar-group>
