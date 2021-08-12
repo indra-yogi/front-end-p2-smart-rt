@@ -29,14 +29,6 @@
           <vs-col vs-type="flex" vs-justify="left" vs-align="left" w="6">
             <vs-input type="text" label="Alamat" v-model="users.address" placeholder="Alamat"></vs-input>
             <br><br>
-            <vs-input type="text" label="RT" v-model="users.neighbourhood" placeholder="01"></vs-input>
-            <br><br>
-            <vs-input type="Text" label="Kelurahan" v-model="users.village" placeholder="Kelurahan"></vs-input>
-            <br><br>
-            <vs-input type="Text" label="Kecamatan" v-model="users.district" placeholder="Kecamatan"></vs-input>
-            <br><br>
-            <vs-input type="Text" label="Kota" v-model="users.city" placeholder="Kota"></vs-input>
-            <br><br>
               <vs-select label="Provinsi" placeholder="Pilih provinsi" v-model="select.provinceId" id="selectProvince" :key="list.provinceList.length" @input="fetchCity">
                 <vs-option v-for="(item, index) in list.provinceList" :key="index" :label="item.name" :value="item.id">
                   {{ item.name }}
