@@ -1,6 +1,6 @@
 <template>
   <div id="register">
-    <vs-navbar color="#7d33ff" text-white square>
+    <vs-navbar color="#0088CC" text-white square>
       <template #left>
         <h3>Add a new Administrator</h3>
       </template>

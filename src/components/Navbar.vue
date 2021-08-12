@@ -1,13 +1,13 @@
 <template>
   <div>
-    <vs-navbar color="#7d33ff" text-white square center-collapsed>
+    <vs-navbar color="#0088CC" text-white square center-collapsed>
       <h2>{{ msg }}</h2>
       <template v-if="auth.authenticated" #right>
         <h5>{{ auth.user.name }}</h5>
         <vs-button flat color="danger" @click="logout">Logout</vs-button>
       </template>
       <template v-else #right>
-        <vs-button color="primary" to="Home">Login</vs-button>
+        <vs-button style="background-color: #f1f1f1;color: #2c3e50; font-weight: bold" to="Home">Login</vs-button>
       </template>
     </vs-navbar>
   </div>

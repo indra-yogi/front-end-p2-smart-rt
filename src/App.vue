@@ -13,6 +13,10 @@
   color: #2c3e50;
 }
 
+.vs-card-content.center .vs-card {
+  background-color: white;
+}
+
 #nav {
   padding: 30px;
 }
