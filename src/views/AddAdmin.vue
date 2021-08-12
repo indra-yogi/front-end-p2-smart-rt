@@ -59,7 +59,10 @@
                 </vs-option>
               </vs-select>
             <br><br>
-            <vs-button flat color="primary" type="submit">Submit</vs-button>
+            <vs-row>
+              <vs-button flat color="primary" type="submit">Submit</vs-button>
+              <vs-button flat color="primary" @click="$router.go(-1)" type="button">Kembali</vs-button>
+            </vs-row>
             <div v-for="(error, index) in errors" :key="index">
               <vs-alert color="danger">
                 {{ error[0] }}
