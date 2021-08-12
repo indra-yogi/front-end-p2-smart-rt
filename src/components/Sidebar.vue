@@ -8,7 +8,7 @@
     >
       <h1>Aplikasi P2</h1>
       <vs-sidebar-item id="Dashboard" to="/">
-        Dashboard
+        Home
       </vs-sidebar-item>
       <vs-sidebar-item id="Kontak" to="About">
         Kontak Kami
